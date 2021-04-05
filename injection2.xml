@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/jdbc https://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+	<bean class="com.xworkz.jail.washingmachine.WashingMachine"
+		id="washingMachine">
+		<property name="companyName" value="LG"></property>
+		<property name="capacity" value="7.5"></property>
+		<property name="pow" ref="power"></property>
+		<property name="motor" ref="motor"></property>
+	</bean>
+	<bean class="com.xworkz.jail.washingmachine.Power" id="power">
+		<property name="on" value="true"></property>
+		
+	</bean>
+	<bean class="com.xworkz.jail.washingmachine.Motor" id="motor">
+		<property name="warrantyPeriod" value="10"></property>
+		
+
+	</bean>
+</beans>
