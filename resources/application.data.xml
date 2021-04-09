@@ -2,34 +2,51 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
-	
+
 	xsi:schemaLocation="
         http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/jdbc https://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
 
-	<bean
-		class="com.xworkz.fooddelivery.repository.CustomerRepositoryImpl"
-		id="customerRepositoryImpl" scope="singleton" />
+   <bean
+		class= "org.springframework.orm.hibernate5.LocalSessionFactoryBean" 
+		id="localSessionFactoryBean" scope="singleton">
+		
+		<property name="configLocation" value="hibernate.cfg.xml" />
+	</bean>
+
+
 	<bean
 		class="com.xworkz.fooddelivery.repository.FoodItemRepositoryImpl"
-		id="foodItemRepositoryImpl" scope="singleton" ></bean>
+		id="foodItemRepositoryImpl" scope="singleton">
+		<constructor-arg ref="localSessionFactoryBean"></constructor-arg>
+	</bean>
+	<bean class="com.xworkz.fooddelivery.service.FoodItemServiceImpl"
+		id="foodItemServiceImpl" scope="singleton">
+		<constructor-arg ref="foodItemRepositoryImpl"></constructor-arg>
+		
+
+	</bean>
+
 	<bean
-		class="com.xworkz.fooddelivery.repository.HotelVendorRepositoryImpl"
-		id="hotelVendorRepositoryImpl" scope="singleton" ></bean>
+		class="com.xworkz.fooddelivery.repository.CustomerRepositoryImpl"
+		id="customerRepositoryImpl" scope="singleton" >
+		<constructor-arg ref="localSessionFactoryBean"></constructor-arg>
+		</bean>
 
 	<bean class="com.xworkz.fooddelivery.service.CustomerServiceImpl"
 		id="customerServiceImpl" scope="singleton">
 		<constructor-arg ref="customerRepositoryImpl"></constructor-arg>
 	</bean>
-	<bean class="com.xworkz.fooddelivery.service.FoodItemServiceImpl"
-		id="foodItemServiceImpl" scope="singleton">
-		<constructor-arg ref="foodItemRepositoryImpl"></constructor-arg>
-
+	<bean
+		class="com.xworkz.fooddelivery.repository.HotelVendorRepositoryImpl"
+		id="hotelVendorRepositoryImpl" scope="singleton">
+		<constructor-arg ref="localSessionFactoryBean"></constructor-arg>
+	
 	</bean>
+
 	<bean
 		class="com.xworkz.fooddelivery.service.HotelVendorServiceImpl"
 		id="hotelVendorServiceImpl" scope="singleton">
-
 		<constructor-arg ref="hotelVendorRepositoryImpl"></constructor-arg>
 	</bean>
 
