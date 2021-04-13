@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/jdbc https://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+
+	<bean
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean"
+		id="localSessionFactoryBean" scope="singleton">
+		<property name="dataSource" ref="driverManagerDataSource" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.show.sql">${hibernate.show.sql}</prop>
+				<prop key="hibernate.format.sql">${hibernate.format.sql}</prop>
+
+			</props>
+		</property>
+		<property name="packagesToScan"
+			value="com.xworkz.applicationinfo.Entity" />
+	</bean>
+	<bean
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+		id="driverManagerDataSource" scope="singleton">
+		<constructor-arg value="${datasource.url}" />
+		<constructor-arg value="${datasource.username}" />
+		<constructor-arg value="${datasource.password}" />
+		<property name="driverClassName"
+			value="${datasource.hibernate.class.name}" />
+	</bean>
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+		id="propertyPlaceholderConfigurer" scope="singleton">
+
+		<property name="locations" value="application.properties"></property>
+
+	</bean>
+	<bean
+		class="com.xworkz.applicationinfo.Repository.AppicationEntityRepositoryImpl"
+		id="appicationEntityRepositoryImpl" scope="singleton">
+		<constructor-arg ref="localSessionFactoryBean"></constructor-arg>
+	</bean>
+	<bean
+		class="com.xworkz.applicationinfo.Service.ApplicationServiceImpl"
+		id="applicationServiceImpl" scope="singleton">
+		<constructor-arg ref="appicationEntityRepositoryImpl"></constructor-arg>
+	</bean>
+	<bean
+		class="com.xworkz.applicationinfo.Repository.HistoricalPlaceRepositoryImpl"
+		id="historicalPlaceRepositoryImpl" scope="singleton">
+		<constructor-arg ref="localSessionFactoryBean"></constructor-arg>
+	</bean>
+	<bean
+		class="com.xworkz.applicationinfo.Service.HistoricalPlaceServiceImpl"
+		id="historicalPlaceServiceImpl" scope="singleton">
+		<constructor-arg ref="historicalPlaceRepositoryImpl"></constructor-arg>
+	</bean>
+	<bean
+		class="com.xworkz.applicationinfo.Repository.KabbaddiRepositoryImpl"
+		id="kabbaddiRepositoryImpl" scope="singleton">
+		<constructor-arg ref="localSessionFactoryBean"></constructor-arg>
+	</bean>
+	<bean
+		class="com.xworkz.applicationinfo.Service.KabbaddiServiceImpl"
+		id="kabbaddiServiceImpl" scope="singleton">
+		<constructor-arg ref="kabbaddiRepositoryImpl"></constructor-arg>
+	</bean>
+	<bean
+		class="com.xworkz.applicationinfo.Repository.ManumentRepositoryImpl"
+		id="manumentRepositoryImpl" scope="singleton">
+		<constructor-arg ref="localSessionFactoryBean"></constructor-arg>
+	</bean>
+	<bean
+		class="com.xworkz.applicationinfo.Service.ManumentServiceImpl"
+		id="manumentServiceImpl" scope="singleton">
+		<constructor-arg ref="manumentRepositoryImpl"></constructor-arg>
+	</bean>
+	<bean
+		class="com.xworkz.applicationinfo.Repository.MineralRepositoryImpl"
+		id="mineralRepositoryImpl" scope="singleton">
+		<constructor-arg ref="localSessionFactoryBean"></constructor-arg>
+	</bean>
+	<bean
+		class="com.xworkz.applicationinfo.Service.MineralServiceImpl"
+		id="mineralServiceImpl" scope="singleton">
+		<constructor-arg ref="mineralRepositoryImpl"></constructor-arg>
+	</bean>
+	<bean
+		class="com.xworkz.applicationinfo.Repository.NationalForestRepositoryImpl"
+		id="nationalForestRepositoryImpl" scope="singleton">
+		<constructor-arg ref="localSessionFactoryBean"></constructor-arg>
+	</bean>
+	<bean
+		class="com.xworkz.applicationinfo.Service.NationalForestServiceImpl"
+		id="nationalForestServiceImpl" scope="singleton">
+		<constructor-arg ref="nationalForestRepositoryImpl"></constructor-arg>
+	</bean>
+	<bean
+		class="com.xworkz.applicationinfo.Repository.ShirtRepositoryImpl"
+		id="shirtRepositoryImpl">
+		<constructor-arg ref="localSessionFactoryBean"></constructor-arg>
+	</bean>
+	<bean class="com.xworkz.applicationinfo.Service.ShirtServiceImpl"
+		id="shirtServiceImpl">
+		<constructor-arg ref="shirtRepositoryImpl"></constructor-arg>
+	</bean>
+
+	<bean
+		class="com.xworkz.applicationinfo.Repository.TvChannelRepositoryImpl"
+		id="tvChannelRepositoryImpl">
+		<constructor-arg ref="localSessionFactoryBean"></constructor-arg>
+	</bean>
+	<bean
+		class="com.xworkz.applicationinfo.Service.TvChannelServiceImpl"
+		id="tvChannelServiceImpl">
+		<constructor-arg ref="tvChannelRepositoryImpl"></constructor-arg>
+	</bean>
+
+	<bean
+		class="com.xworkz.applicationinfo.Repository.VesselRepositoryImpl"
+		id="vesselRepositoryImpl">
+		<constructor-arg ref="localSessionFactoryBean"></constructor-arg>
+	</bean>
+	<bean class="com.xworkz.applicationinfo.Service.VesselServiceImpl"
+		id="vesselServiceImpl">
+		<constructor-arg ref="vesselRepositoryImpl"></constructor-arg>
+	</bean>
+
+	<bean
+		class="com.xworkz.applicationinfo.Repository.VirusRpositoryImpl"
+		id="virusRpositoryImpl">
+		<constructor-arg ref="localSessionFactoryBean"></constructor-arg>
+	</bean>
+	<bean class="com.xworkz.applicationinfo.Service.VirusServiceImpl"
+		id="virusServiceImpl">
+		<constructor-arg ref="virusRpositoryImpl"></constructor-arg>
+	</bean>
+</beans>
